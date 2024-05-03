@@ -15,7 +15,8 @@ body {
     width: 400px;
     display: flex;
     flex-direction: column;
-    border: double;
+    border: solid;
+    border-radius: 20px;
 }
 
 .calculator:hover {
@@ -64,6 +65,11 @@ body {
 
 .zero {
     width: 200px;
+    border-radius: 0px 0px 0px 14px;
+}
+
+.equals {
+    border-radius: 0px 0px 14px 0px;
 }
 
 .blowup {
@@ -78,6 +84,7 @@ body {
     align-items: flex-end;
     align-self: center;
     background-color: rgb(104, 104, 104);
+    border-radius: 14px 14px 0px 0px;
 }
 
 .displayValue {
@@ -86,7 +93,5 @@ body {
     font-weight: 400;
     font-style: normal;
     color: white;
-
     margin: 5px 15px;
-
 }

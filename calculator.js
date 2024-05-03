@@ -32,17 +32,27 @@ btnEight.addEventListener("click", () => updateDisplayValue(8));
 btnNine.addEventListener("click", () => updateDisplayValue(9));
 btnClear.addEventListener("click", () => clearDisplay());
 btnPlus.addEventListener("click", () => handleOperators("+"));
-btnSubtract.addEventListener("click", () => handleOperators("-"));
+btnSubtract.addEventListener("click", () => handleOperators("‐"));
 btnMultiply.addEventListener("click", () => handleOperators("×"));
 btnDivide.addEventListener("click", () => handleOperators("÷"));
 btnEquals.addEventListener("click", () => evaluateRequest());
 btnDecimal.addEventListener("click", () => updateDisplayValue("."));
 btnBlowUp.addEventListener("click", () => displayBlowUp());
 btnPolarity.addEventListener("click", () => changePolarity());
+document.addEventListener("keypress", (e) => {
+    console.log(e.key)
+    if (numbersList.includes(e.key)) updateDisplayValue(e.key);
+    else if (e.key == "x" || e.key == "*") handleOperators("×");
+    else if (keyPressList.includes(e.key)) handleOperators(e.key);
+    else if (e.key == "=" || e.key == "Enter") evaluateRequest();
+    else if (e.key == "/") handleOperators("÷");
 
-// ﹣
 
-let operatorList = "+-×÷%"
+})
+
+let keyPressList = "+-"
+let operatorList = "+‐×÷";
+let numbersList = "0123456789.";
 let displayArr = [];
 display.textContent = 0;
 let numOfOperators = 0;
@@ -51,6 +61,7 @@ let firstVar = "";
 let operator = "";
 let secondVar = "";
 let currentAnswer = "";
+let displayString = "";
 
 
 
@@ -60,73 +71,62 @@ function changePolarity() {
 }
 
 function evaluateRequest() {
-    displayArr.forEach((item) => {
-        if (item == "﹣") item = "-";
-    })
-    
-
-    console.log("displayArr before evaluation: " + displayArr)
     displayArr.forEach((value) => {
     if (!operatorList.includes(value) && operator == "") {
         firstVar += value;
-        console.log("option 1 happened: " + firstVar)
     }
     else if (operatorList.includes(value)) {
         operator = value;
-        console.log("option 2 happened: " + operator)
     }
     else if (!operatorList.includes(value) && operator !== "") {
         secondVar += value;
-        console.log("option 3 happened: " + secondVar)
     }
     })
-
-
-    console.log(`post evaluationRequest: first var: ${firstVar}, operation: ${operator}, second var: ${secondVar}`);
     calculate(firstVar, operator, secondVar);
 }
 
 function handleOperators(operation) {
-    if (numOfOperators >= 1 ) {
-        console.log("before function: " + displayArr);
+    console.log("num of operators: " + numOfOperators)
+    if (numOfOperators >= 1) {
         firstVar = "";
         secondVar = "";
         display.textContent = "";
         operator = "";
         evaluateRequest();
+        console.log(displayArr)
         displayArr = [];
         firstVar = currentAnswer;
-        console.log(`first var: ${firstVar}, operation: ${operator}, second var: ${secondVar}`);
         updateDisplayValue(firstVar);
         updateDisplayValue(operation);
-        console.log("after function: " + displayArr);
     }
     else if (numOfOperators == 0) {
         updateDisplayValue(operation);
         numOfOperators++;
+        console.log("whats happening here: " + displayString)
     }
 }
 
 function clearDisplay() {
     displayArr = [];
     display.textContent = 0;
-    numOfOperators = 0;
     firstVar = "";
     secondVar = "";
     operator = "";
     displayString = "";
+    currentAnswer = "";
+    numOfOperators = 0;
 }
 
 function updateDisplayValue(num) {
-    let displayString = "";
     displayArr.push(num);
-    displayArr.forEach((value) => {displayString += value})
+    console.log(displayArr)
+    displayString += num;
     display.textContent = displayString;
+    console.log(displayArr)
     firstVar = "";
     secondVar = "";
     operator = "";
-    }
-
+}
 
 function add(a, b) {
     return Number(a) + Number(b)
@@ -148,7 +148,7 @@ function calculate(a, operator, b) {
     switch (operator) {
         case "+": displayAnswer(add(a, b));
            break;
-        case "-": displayAnswer((subtract(a, b)));
+        case "‐": displayAnswer((subtract(a, b)));
             break;
         case "×": displayAnswer(multiply(a, b));
             break;
@@ -158,19 +158,14 @@ function calculate(a, operator, b) {
     }
 }
 
-
 function displayAnswer(answer) {
+    clearDisplay();
     currentAnswer = answer;
     display.textContent = currentAnswer;
-    console.log("current answer is: " + currentAnswer)
 }
-
 
 function displayBlowUp() {
     clearDisplay();
-    display.textContent = 'SULAIMAN SYED INCOMING!!!!!!'
+    display.textContent = 'SULAIMAN SYED INCOMINGGGG!!!!!'
 }
-
-
-
 
