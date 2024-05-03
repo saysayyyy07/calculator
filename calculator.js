@@ -39,13 +39,14 @@ btnEquals.addEventListener("click", () => evaluateRequest());
 btnDecimal.addEventListener("click", () => updateDisplayValue("."));
 btnBlowUp.addEventListener("click", () => displayBlowUp());
 btnPolarity.addEventListener("click", () => changePolarity());
-document.addEventListener("keypress", (e) => {
+document.addEventListener("keydown", (e) => {
     console.log(e.key)
     if (numbersList.includes(e.key)) updateDisplayValue(e.key);
     else if (e.key == "x" || e.key == "*") handleOperators("×");
     else if (keyPressList.includes(e.key)) handleOperators(e.key);
     else if (e.key == "=" || e.key == "Enter") evaluateRequest();
     else if (e.key == "/") handleOperators("÷");
+    else if (e.key == "Backspace") clearDisplay();
 
 
 })
