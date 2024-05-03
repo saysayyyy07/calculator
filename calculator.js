@@ -47,8 +47,6 @@ document.addEventListener("keydown", (e) => {
     else if (e.key == "=" || e.key == "Enter") evaluateRequest();
     else if (e.key == "/") handleOperators("÷");
     else if (e.key == "Backspace") clearDisplay();
-
-
 })
 
 let keyPressList = "+-"
@@ -99,6 +97,7 @@ function handleOperators(operation) {
         firstVar = currentAnswer;
         updateDisplayValue(firstVar);
         updateDisplayValue(operation);
+        numberOfOperators++;9
     }
     else if (numOfOperators == 0) {
         updateDisplayValue(operation);
@@ -160,7 +159,13 @@ function calculate(a, operator, b) {
 }
 
 function displayAnswer(answer) {
-    clearDisplay();
+    displayArr = [];
+    display.textContent = 0;
+    firstVar = "";
+    secondVar = "";
+    operator = "";
+    displayString = "";
+    currentAnswer = "";
     currentAnswer = answer;
     display.textContent = currentAnswer;
 }
